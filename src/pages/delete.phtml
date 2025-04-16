@@ -3,7 +3,7 @@
 include '../src/conexao.php';
 
 //pegar a info da URL
-$id = $_GET['id'];
+$id = parameter('id');
 
 $pdo->query("DELETE FROM tb_contatos WHERE id='{$id}';");
 

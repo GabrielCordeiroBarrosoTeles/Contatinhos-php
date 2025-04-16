@@ -1,19 +1,28 @@
 <?php
     if (false === empty($_POST)) {
         //recebendo os dados que vieram do form do HTML
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
+        $name = parameter('name');
+        $email = parameter('email');
+        $phone = parameter('phone');
 
         $sql = "
             INSERT INTO tb_contatos (nome, email, telefone)
-            VALUES ('{$name}', '{$email}', '{$phone}');
+            VALUES (:nome, :email, :telefone);
         ";
+
+        //SQL Injection: a@a', '1231'); DELETE FROM tb_contatos; --
 
         include '../src/conexao.php';
 
         // esse codigo é sujeito a ataques SQL Injection
-        $pdo->query($sql);
+        // $pdo->query($sql);
+
+        $pdo->prepare($sql)->execute([
+            ':nome' => $name,
+            ':email' => $email,
+            ':telefone' => $phone,
+        ]);
+
 
         echo "<div class='alert alert-success'>
             <strong>Pronto!</strong>

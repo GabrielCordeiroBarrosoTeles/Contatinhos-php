@@ -2,10 +2,10 @@
 
 include '../src/conexao.php';
 
-$nome = $_POST['name'];
-$email = $_POST['email'];
-$telefone = $_POST['phone'];
-$id = $_POST['id'];
+$nome = parameter('name');
+$email = parameter('email');
+$telefone = parameter('phone');
+$id = parameter('id');
 
 // esse codigo esta sujeito a XSS e SQL Injection   
 $sql = "
